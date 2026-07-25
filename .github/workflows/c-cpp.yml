@@ -1,8 +1,10 @@
-name: Build
+name: Build libnb
 
 on:
   push:
+    branches: ["master"]
   pull_request:
+    branches: ["master"]
   workflow_dispatch:
 
 jobs:
@@ -12,28 +14,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            build-essential \
-            autoconf \
-            automake \
-            libtool \
-            pkg-config
+      - name: Setup Android NDK
+        uses: nttld/setup-ndk@v1
+        with:
+          ndk-version: r27c
 
       - name: Configure
-        run: ./configure
+        run: |
+          cmake . \
+            -B build \
+            -DANDROID_NDK_HOME="$ANDROID_NDK_HOME"
 
       - name: Build
-        run: make -j$(nproc)
+        run: |
+          cmake --build build -j$(nproc)
 
-      - name: Test
-        run: make check || true
-
-      - name: Upload libnb.so
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: libnb
           path: |
-            **/libnb.so
+            build/**/*.so
