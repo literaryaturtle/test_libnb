@@ -16,7 +16,7 @@ set(COMPILE_ARCH x86_64)
 endif()
 
 if(NOT DEFINED NATIVEBRIDGE)
-set(NATIVEBRIDGE houdini)
+set(NATIVEBRIDGE ndk_translation)
 endif()
 
 if (NOT DEFINED NB_VERSION)
