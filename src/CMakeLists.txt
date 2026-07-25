@@ -1,4 +1,4 @@
-set(INCLUDED_PATCH_SOURCE "ndk_translation_R112-15359.58.0_patches.cpp)
+set(INCLUDED_PATCH_SOURCE "ndk_translation_R112-15359.58.0_patches.cpp")
 
 message(STATUS "Using patch source: ${INCLUDED_PATCH_SOURCE}")
 
